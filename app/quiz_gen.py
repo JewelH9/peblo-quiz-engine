@@ -1,11 +1,11 @@
 import os
 import json
 import uuid
-import anthropic
+import google.generativeai as genai
 
 from app.database import get_chunks_by_source, save_question
 
-client = anthropic.Anthropic(api_key=os.getenv("LLM_API_KEY"))
+genai.configure(api_key=os.getenv("LLM_API_KEY"))
 
 
 def build_prompt(chunk_text: str, topic: str) -> str:
@@ -57,15 +57,9 @@ def generate_quiz_questions(source_id: str) -> list:
         try:
             prompt = build_prompt(chunk["text"], chunk.get("topic", ""))
 
-            response = client.messages.create(
-                model="claude-sonnet-4-20250514",
-                max_tokens=1500,
-                messages=[
-                    {"role": "user", "content": prompt}
-                ]
-            )
-
-            raw = response.content[0].text.strip()
+            model = genai.GenerativeModel("gemini-1.5-flash")
+            response = model.generate_content(prompt)
+            raw = response.text.strip()
 
             # sometimes llm adds backticks so lets remove them
             if raw.startswith("```"):
