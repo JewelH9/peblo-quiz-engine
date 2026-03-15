@@ -1,0 +1,32 @@
+[
+  {
+    "question_id": "Q_A1B2C3D4",
+    "source_chunk_id": "SRC_4A3B2C1D_CH_01",
+    "question": "How many sides does a triangle have?",
+    "type": "MCQ",
+    "options": ["2", "3", "4", "5"],
+    "answer": "3",
+    "difficulty": "easy",
+    "topic": "peblo pdf grade1 math numbers"
+  },
+  {
+    "question_id": "Q_E5F6G7H8",
+    "source_chunk_id": "SRC_4A3B2C1D_CH_01",
+    "question": "A circle has corners.",
+    "type": "true_false",
+    "options": ["True", "False"],
+    "answer": "False",
+    "difficulty": "easy",
+    "topic": "peblo pdf grade1 math numbers"
+  },
+  {
+    "question_id": "Q_I9J0K1L2",
+    "source_chunk_id": "SRC_4A3B2C1D_CH_01",
+    "question": "A square has ___ equal sides.",
+    "type": "fill_in_blank",
+    "options": [],
+    "answer": "4",
+    "difficulty": "medium",
+    "topic": "peblo pdf grade1 math numbers"
+  }
+]
