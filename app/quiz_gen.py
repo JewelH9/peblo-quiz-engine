@@ -1,11 +1,14 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 import os
 import json
 import uuid
-import google.generativeai as genai
+from groq import Groq
 
 from app.database import get_chunks_by_source, save_question
 
-genai.configure(api_key=os.getenv("LLM_API_KEY"))
+client = Groq(api_key=os.getenv("LLM_API_KEY"))
 
 
 def build_prompt(chunk_text: str, topic: str) -> str:
@@ -57,9 +60,11 @@ def generate_quiz_questions(source_id: str) -> list:
         try:
             prompt = build_prompt(chunk["text"], chunk.get("topic", ""))
 
-            model = genai.GenerativeModel("gemini-1.5-flash")
-            response = model.generate_content(prompt)
-            raw = response.text.strip()
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[{"role": "user", "content": prompt}]
+            )
+            raw = response.choices[0].message.content.strip()
 
             # sometimes llm adds backticks so lets remove them
             if raw.startswith("```"):

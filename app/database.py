@@ -3,7 +3,8 @@ import os
 import json
 from datetime import datetime
 
-DB_PATH = os.getenv("DATABASE_URL", "peblo.db")
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "peblo.db")
+DB_PATH = os.path.normpath(DB_PATH)
 
 def get_conn():
     conn = sqlite3.connect(DB_PATH)
